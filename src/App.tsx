@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Home from './components/Home';
+import Greeting from './components/Greeting';
+import NotFound from './components/NotFound';
+
+// TODO: name changed -> need refactoring
+
+const App: React.FC = () => {
+	return (
+		<>
+			<Switch>
+				<Redirect exact from="/" to="/home" />
+				<Route path="/home" component={Home} />
+				{/* 
+					// TODO: get the following parameters from link: text,emojis, balloons?
+					// TODO: opportunity to use templates? (e.g. name day, birthday, etc.)
+				*/}
+				<Route path="/greeting/:type" component={Greeting} />
+				<Route path="*" component={NotFound} />
+			</Switch>
+		</>
+	);
+};
 
 export default App;
